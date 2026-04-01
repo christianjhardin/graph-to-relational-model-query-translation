@@ -1,0 +1,44 @@
+//Find all actors that directed a movie they also acted in and return actor and movie nodes
+SELECT 
+    p.PersonName,
+    m.MovieTitle
+FROM MovieActor ma
+JOIN MovieDirector md
+    ON ma.MovieID = md.MovieID
+   AND ma.PersonID = md.PersonID
+JOIN Person p
+    ON ma.PersonID = p.PersonID
+JOIN Movie m
+    ON ma.MovieID = m.MovieID;
+
+//Find all reviewer pairs, one following the other, and return the two reviewers and a movie they may have reviewed both
+SELECT 
+    p1.PersonName AS Reviewer1,
+    p2.PersonName AS Reviewer2,
+    m.MovieTitle
+FROM MovieReviewer r1
+JOIN MovieReviewer r2
+    ON r1.MovieID = r2.MovieID
+JOIN Person p1
+    ON r1.PersonID = p1.PersonID
+JOIN Person p2
+    ON r2.PersonID = p2.PersonID
+JOIN Movie m
+    ON r1.MovieID = m.MovieID;
+
+//Find all actor pairs that acted in multiple movies together
+SELECT 
+    p1.PersonName AS Actor1,
+    p2.PersonName AS Actor2,
+    COUNT(*) AS MoviesTogether
+FROM MovieActor a1
+JOIN MovieActor a2
+    ON a1.MovieID = a2.MovieID
+JOIN Person p1
+    ON a1.PersonID = p1.PersonID
+JOIN Person p2
+    ON a2.PersonID = p2.PersonID
+GROUP BY 
+    a1.PersonID,
+    a2.PersonID
+HAVING COUNT(*) > 1;
