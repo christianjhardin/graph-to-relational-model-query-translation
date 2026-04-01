@@ -1,4 +1,6 @@
 # Graph to Relational Model Query Translation
+## Problem Statment
+Graph databases excel at relationship traversal, while relational databases dominate enterprise systems. This project explores how graph queries can be expressed in SQL to bridge these paradigms.
 ## Objectives
 - Translate graph traversal problems into SQL queries
 - Model many-to-many relationships using relational schemas
